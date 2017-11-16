@@ -134,6 +134,10 @@ unsigned int b_addr=0;
 
 unsigned int c_addr=0;
 
+unsigned int sum_addr=0;
+
+unsigned int temp_addr=0;
+
 FILE *file=NULL;
 
 

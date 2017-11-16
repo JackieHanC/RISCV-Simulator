@@ -15,6 +15,8 @@ extern unsigned int result_addr;
 extern unsigned int a_addr;
 extern unsigned int b_addr;
 extern unsigned int c_addr;
+extern unsigned int sum_addr;
+extern unsigned int temp_addr;
 
 extern FILE *file;
 
@@ -148,17 +150,19 @@ void simulate()
         //printf("here\n");
 
         unsigned char* addr = (unsigned char*)memory;
-        // for (int i = 0;i < 42;++i){
+        // printf("result array \n");
+        // for (int i = 0;i < 6;++i){
         // 	printf("%d ", *(int*)(addr+result_addr+i*4));
         // }
         // printf("\n");
+        // printf("sum is %d\n",*(int*)(addr + sum_addr));
         printf("\t a value is %d\n",*(int*)(addr + a_addr));
         printf("\t b value is %d\n",*(int*)(addr + b_addr));
         printf("\t c value is %d\n",*(int*)(addr + c_addr));
-//        printf("*******Result is  %d******\n", *(int*)(addr+result_addr));
+        // printf("*******Result is  %d******\n", *(int*)(addr+result_addr));
+        // printf("***temp is %d*****\n",*(int*)(addr+temp_addr) );
 
-        fflush(stdout);
-        printf("end Here\n");
+
 	}
 
 
@@ -175,9 +179,11 @@ void IF()
 	//IF_ID_old.inst=memory[PC];
 	IF_ID.inst=memory[PC];
 	printf("PC is 0x%05x  inst 0x%08x\n",PC<<2,IF_ID.inst);
-	PC=PC+1;
+	//IDnextPC=PC+1;
 	// IF_ID_old.PC=PC;
+	PC = PC + 1;
 	IF_ID.PC=PC;
+
 
 	cycle_num++;
 }
@@ -670,8 +676,13 @@ void ID()
     		ALUop = ALUop_ADDW;
     	}else if (fuc3 == F3_MULW && fuc7 == F7_MULW){
     		ALUop = ALUop_Mulw;
-    	}else{
-    		printf("Unkonwn fuc3 and fuc7 of OP_RW\n");
+    	}else if (fuc3 == F3_DIVW && fuc7 == F7_DIVW){
+    		ALUop = ALUop_DIVW;
+    	}else if (fuc3 == F3_SUBW && fuc7 == F7_SUBW){
+    		ALUop = ALUop_SUBW;
+    	}
+    	else{
+    		printf("Unknown fuc3 and fuc7 of OP_RW\n");
     	}
     }
     else
@@ -899,6 +910,14 @@ void EX()
 		break;
 	case ALUop_Mulw:
 		ALUout = (long long)((int)input1*(int)input2);
+		cycle_num++;
+		break;
+	case ALUop_DIVW:
+		ALUout = (long long)((int)input1/(int)input2);
+		cycle_num += 40;
+		break;
+	case ALUop_SUBW:
+		ALUout = (long long)((int)input1 - (int)input2);
 		cycle_num++;
 		break;
 	default:

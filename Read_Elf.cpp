@@ -397,6 +397,14 @@ void read_symtable()
 			c_addr = *(unsigned long*)&elf64_sym.st_value;
 		}
 
+		if (strcmp(name, "sum") == 0) {
+			sum_addr = *(unsigned long*)&elf64_sym.st_value;
+		}
+
+		if (strcmp(name, "temp") == 0) {
+			temp_addr = *(unsigned long*)&elf64_sym.st_value;
+		}
+
 		if (strcmp(name, "main") == 0) {
 			madr = *(unsigned long*)&elf64_sym.st_value;
 		}

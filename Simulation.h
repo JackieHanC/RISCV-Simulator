@@ -123,6 +123,12 @@
 #define F3_MULW 0
 #define F7_MULW 1
 
+#define F3_DIVW 4
+#define F7_DIVW 1
+
+#define F3_SUBW 0
+#define F7_SUBW 0x20
+
 // #define F7_ADDW 0
 
 
@@ -182,6 +188,8 @@
 #define ALUop_JALR 22
 #define ALUop_ADDW 23
 #define ALUop_Mulw 24
+#define ALUop_DIVW 25
+#define ALUop_SUBW 26
 
 
 
