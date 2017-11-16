@@ -1,4 +1,4 @@
-##Lab2.1 riscv simulator
+Lab2.1 riscv simulator
 
 本lab中的riscv simulator使用助教推荐模板所制作  
 其中包含：
